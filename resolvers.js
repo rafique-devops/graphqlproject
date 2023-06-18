@@ -29,7 +29,7 @@ const pool = mysql.createPool({
     database: process.env.DB_DATABASE, //mysql database
   });
 
-
+//this is resolver code
 const resolvers = {
     Query: {
       posts: async () => {
