@@ -16,7 +16,7 @@ jobs:
       - name: Set Up Node Js
         uses: actions/setup-node@v2
         with: 
-          node-version: 14-alpine
+          node-version: 14
           
       - name: Install dependencies
         run:  npm install
@@ -36,4 +36,4 @@ jobs:
           password: ${{ secrets.DOCKERHUB_TOKEN }}
           
       - name: Push Docker Image to Docker Hub
-        run:  docker push thedevops91/grapqlapp:latest
+        run:  docker push thedevops91/grapqlapp:${{ github.sha }}
