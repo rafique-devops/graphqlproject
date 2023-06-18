@@ -31,5 +31,5 @@ jobs:
           password: ${{ secrets.DOCKERHUB_TOKEN }}
           
       - name: Push Docker Image to Docker Hub
-        run:  docker push thedevops91/grapqlapp:${{ github.sha }}
+        run:  docker push thedevops91/grapqlapp:latest
         
