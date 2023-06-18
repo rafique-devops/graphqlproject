@@ -32,3 +32,4 @@ jobs:
           
       - name: Push Docker Image to Docker Hub
         run:  docker push thedevops91/grapqlapp:${{ github.sha }}
+        
