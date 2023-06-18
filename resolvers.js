@@ -1,5 +1,7 @@
 const todos = [];
 const mysql = require('mysql2/promise');
+const { Pool } = require('pg');
+require('dotenv').config();
 
 
 // const resolvers = {
@@ -21,11 +23,12 @@ const mysql = require('mysql2/promise');
 // };
 
 const pool = mysql.createPool({
-    host: '127.0.0.1',
-    user: 'root',
-    password: 'Computerupsc@123',
-    database: 'sys',
+    host: process.env.DB_HOST, //127.0.0.1 for localhost
+    user: process.env.DB_USER, //mysql username
+    password: process.env.DB_PASSWORD, //mysql password
+    database: process.env.DB_DATABASE, //mysql database
   });
+
 
 const resolvers = {
     Query: {
@@ -44,12 +47,19 @@ const resolvers = {
     },
     Mutation: {
       createPost: async (_, { title, content, author }) => {
+        // console.log("inside createpost");
       //  const { title, content, author } = input;
         const conn = await pool.getConnection();
         console.log(title, content, author , "conn_____-")
-        // console.log(conn, "conn_____-")
+        console.log(conn, "conn_____-")
         const [result] = await conn.query('INSERT INTO posts (title, content, author) VALUES (?, ?, ?)', [title, content, author]);
         conn.release();
+        // const [result] = await conn.query('INSERT INTO posts (title, content, author) VALUES ($1, $2, $3) RETURNING *', [title, content, author]);
+        // console.log(result);
+        // conn.release();
+        // const insertedPost = result.rows[0];
+        
+
         return { id: result.insertId, title, content, author };
       },
 
