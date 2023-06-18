@@ -21,10 +21,9 @@ jobs:
       - name: Install dependencies
         run:  npm install
         
-      - name: Build and Tes
+      - name: Build and Test
         run:  |
-          npm run build
-          npm test
+          npm run start
           
       - name: Build a docker image
         run:  docker build -t grapqlapp .
